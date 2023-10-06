@@ -1,6 +1,5 @@
+##Book Connect 
 
-
-LARKOS005_FTO2306_GroupA_Lara_Koseff_IWACapstone
 
 📚 As a junior developer I have been tasked with making improvements to the JavaScript code of a social media platform developed for a startup called Book Connect. The original JavaScript code threw several errors and prevented the application from running. In my assessment, I noticed that many of the major errors were caused by incorrect syntax and the exclusion of or incorrect use of key methods, especially with regards to looping, accessing data- attributes within the HTML using the Document: querySelector() method, as well as the complete absence of event listeners. In addition, there were small but vital corrections that needed to be made to the script element in the HTML document, as well as ensuring that JavaScript modules were being properly utilised through exporting and importing data. 
 
