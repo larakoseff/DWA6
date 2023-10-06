@@ -38,9 +38,8 @@ As per the author search, the user can either filter a search by selecting a gen
 If the search returns no result, the user will receive the message “No results were found. Your filters may be too narrow.”
 
 
-❌ The display can toggle between dark/light modes.
+✅ The display can toggle between dark/light modes.
 
-Unfortunately due to time limitations I did not achieve the final user story request, which is toggling between light and dark modes. This means that the setting button on the top right of the screen is not currently functional or clickable. However, I trust that this will be easily achievable now that the rest of the code has been debugged. 
 
 
 I am happy to report that as it stands there are no current errors or bugs and the JavaScript code is functioning for the most part, as intended.  
