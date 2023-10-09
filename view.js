@@ -1,3 +1,4 @@
+
 import { authors } from './data.js'
 
 export const html = {
@@ -20,7 +21,6 @@ export const html = {
         overlay: document.querySelector('[data-search-overlay]'),
         form: document.querySelector('[data-search-form]'),
         title: document.querySelector('[data-search-title]'),
-        
     },
     settings: {
         theme: document.querySelector('[data-settings-theme]'),
@@ -34,7 +34,6 @@ export const html = {
     },
    
 }
-
 
 export const createPreview = (id, image, title, author) => {
     const element = document.createElement('button')
@@ -55,5 +54,36 @@ export const createPreview = (id, image, title, author) => {
     return element;
   }
 
+  export const createDropdownOptions = (element, data, defaultOptionText) => {
+    const fragment = document.createDocumentFragment();
+    const defaultOption = document.createElement('option');
+    defaultOption.value = 'any';
+    defaultOption.innerText = defaultOptionText;
+    fragment.appendChild(defaultOption);
   
+    for (const [id, name] of Object.entries(data)) {
+      const option = document.createElement('option');
+      option.value = id;
+      option.innerText = name;
+      fragment.appendChild(option);
+    }
+  
+    element.appendChild(fragment);
+  }
+
+  export const setTheme = (theme) => {
+    const darkColors = '10, 10, 20';
+    const lightColors = '255, 255, 255';
+    const root = document.documentElement;
+  
+    if (theme === 'night') {
+      html.settings.theme.value = 'night';
+      root.style.setProperty('--color-dark', lightColors);
+      root.style.setProperty('--color-light', darkColors);
+    } else {
+      html.settings.theme.value = 'day';
+      root.style.setProperty('--color-dark', darkColors);
+      root.style.setProperty('--color-light', lightColors);
+    }
+  }
 

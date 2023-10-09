@@ -1,6 +1,6 @@
-import { books, authors, genres, BOOKS_PER_PAGE } from './data.js'
 
-import { html, createPreview } from './view.js'
+import { books, authors, genres, BOOKS_PER_PAGE } from './data.js'
+import { html, createPreview, createDropdownOptions, setTheme } from './view.js'
 
 let page = 1;
 let matches = books
@@ -14,45 +14,10 @@ for (const { author, id, image, title } of matches.slice(0, BOOKS_PER_PAGE)) {
 
 html.list.items.appendChild(starting)
 
-const genreHtml = document.createDocumentFragment()
-const firstGenreElement = document.createElement('option')
-firstGenreElement.value = 'any'
-firstGenreElement.innerText = 'All Genres'
-genreHtml.appendChild(firstGenreElement)
+createDropdownOptions(html.search.genres, genres, 'All Genres');
+createDropdownOptions(html.search.authors, authors, 'All Authors');
 
-for (const [id, name] of Object.entries(genres)) {
-    const element = document.createElement('option')
-    element.value = id
-    element.innerText = name
-    genreHtml.appendChild(element)
-}
-
-html.search.genres.appendChild(genreHtml)
-
-const authorsHtml = document.createDocumentFragment()
-const firstAuthorElement = document.createElement('option')
-firstAuthorElement.value = 'any'
-firstAuthorElement.innerText = 'All Authors'
-authorsHtml.appendChild(firstAuthorElement)
-
-for (const [id, name] of Object.entries(authors)) {
-    const element = document.createElement('option')
-    element.value = id
-    element.innerText = name
-    authorsHtml.appendChild(element)
-}
-
-html.search.authors.appendChild(authorsHtml)
-
-if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    html.settings.theme.value = 'night'
-    document.documentElement.style.setProperty('--color-dark', '255, 255, 255');
-    document.documentElement.style.setProperty('--color-light', '10, 10, 20');
-} else {
-    html.settings.theme.value = 'day'
-    document.documentElement.style.setProperty('--color-dark', '10, 10, 20');
-    document.documentElement.style.setProperty('--color-light', '255, 255, 255');
-}
+setTheme(html.settings.theme.value);
 
 html.list.button.innerText = `Show more (${books.length - BOOKS_PER_PAGE})`
 html.list.button.disabled = (matches.length - (page * BOOKS_PER_PAGE)) > 0
@@ -71,7 +36,7 @@ html.settings.cancel.addEventListener('click', () => {
 })
 
 html.header.search.addEventListener('click', () => {
-    html.search.overlay.open = true 
+     html.search.overlay.open = true 
     html.search.title.focus()
 })
 
@@ -84,20 +49,14 @@ html.list.close.addEventListener('click', () => {
 })
 
 html.settings.form.addEventListener('submit', (event) => {
-    event.preventDefault()
-    const formData = new FormData(event.target)
-    const { theme } = Object.fromEntries(formData)
-
-    if (theme === 'night') {
-        document.documentElement.style.setProperty('--color-dark', '255, 255, 255');
-        document.documentElement.style.setProperty('--color-light', '10, 10, 20');
-    } else {
-        document.documentElement.style.setProperty('--color-dark', '10, 10, 20');
-        document.documentElement.style.setProperty('--color-light', '255, 255, 255');
-    }
-    
-    html.settings.overlay.open = false
-})
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const { theme } = Object.fromEntries(formData);
+  
+    setTheme(theme);
+  
+    html.settings.overlay.open = false;
+  });
 
 html.search.form.addEventListener('submit', (event) => {
     event.preventDefault()
@@ -193,3 +152,4 @@ html.list.items.addEventListener('click', (event) => {
         html.list.description.innerText = active.description
     }
 })
+
