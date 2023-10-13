@@ -1,6 +1,7 @@
 
-import { books, authors, genres, BOOKS_PER_PAGE } from './data.js'
-import { html, createPreview, createDropdownOptions, setTheme } from './view.js'
+import { books, authors, genres, BOOKS_PER_PAGE } from './modules/data.js'
+import { html, createPreview } from './modules/html.js'
+import { createDropdownOptions, setTheme } from './modules/view.js'
 
 let page = 1;
 let matches = books
@@ -20,11 +21,12 @@ createDropdownOptions(html.search.authors, authors, 'All Authors');
 setTheme(html.settings.theme.value);
 
 html.list.button.innerText = `Show more (${books.length - BOOKS_PER_PAGE})`
-html.list.button.disabled = (matches.length - (page * BOOKS_PER_PAGE)) > 0
+html.list.button.disabled = (matches.length - (page * BOOKS_PER_PAGE)) < 0
 
 html.list.button.innerHTML =  `
 <span>Show more</span>
-<span class="list__remaining"> (${(matches.length - (page * BOOKS_PER_PAGE)) > 0 ? (matches.length - (page * BOOKS_PER_PAGE)) : 0})</span>
+<span class="list__remaining"> (${(matches.length - (page * BOOKS_PER_PAGE)) 
+    > 0 ? (matches.length - (page * BOOKS_PER_PAGE)) : 0})</span>
 `
 
 html.search.cancel.addEventListener('click', () => {
@@ -103,9 +105,9 @@ html.list.items.appendChild(newItems)
 
     html.list.button.innerHTML = `
         <span>Show more</span>
-        <span class="list__remaining"> (${(matches.length - (page * BOOKS_PER_PAGE)) > 0 ? (matches.length - (page * BOOKS_PER_PAGE)) : 0})</span>
+        <span class="list__remaining"> (${(matches.length - (page * BOOKS_PER_PAGE)) 
+            > 0 ? (matches.length - (page * BOOKS_PER_PAGE)) : 0})</span>
     `
-
     window.scrollTo({top: 0, behavior: 'smooth'});
     html.search.overlay.open = false
 })

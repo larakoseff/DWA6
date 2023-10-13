@@ -1,6 +1,13 @@
-
 import { authors } from './data.js'
 
+/**
+ * 
+ * @typedef {object} Html 
+ * @prop {object} list 
+ * @prop {object} search 
+ * @prop {object} settings 
+ * @prop {object} header 
+ */
 export const html = {
     list: {
         items: document.querySelector('[data-list-items]'),
@@ -12,7 +19,7 @@ export const html = {
         image: document.querySelector('[data-list-image]'),
         title: document.querySelector('[data-list-title]'),
         subtitle: document.querySelector('[data-list-subtitle]'),
-        description: document.querySelector('[data-list-description]')
+        description: document.querySelector('[data-list-description]'),
     },
     search: {
         authors: document.querySelector('[data-search-authors]'),
@@ -35,6 +42,15 @@ export const html = {
    
 }
 
+/**
+ * 
+ * @param {string} id 
+ * @param {string} image 
+ * @param {string} title 
+ * @param {string} author 
+ * @returns {HTMLElement}
+ * 
+ */
 export const createPreview = (id, image, title, author) => {
     const element = document.createElement('button')
     element.classList = 'preview'
@@ -54,36 +70,4 @@ export const createPreview = (id, image, title, author) => {
     return element;
   }
 
-  export const createDropdownOptions = (element, data, defaultOptionText) => {
-    const fragment = document.createDocumentFragment();
-    const defaultOption = document.createElement('option');
-    defaultOption.value = 'any';
-    defaultOption.innerText = defaultOptionText;
-    fragment.appendChild(defaultOption);
-  
-    for (const [id, name] of Object.entries(data)) {
-      const option = document.createElement('option');
-      option.value = id;
-      option.innerText = name;
-      fragment.appendChild(option);
-    }
-  
-    element.appendChild(fragment);
-  }
-
-  export const setTheme = (theme) => {
-    const darkColors = '10, 10, 20';
-    const lightColors = '255, 255, 255';
-    const root = document.documentElement;
-  
-    if (theme === 'night') {
-      html.settings.theme.value = 'night';
-      root.style.setProperty('--color-dark', lightColors);
-      root.style.setProperty('--color-light', darkColors);
-    } else {
-      html.settings.theme.value = 'day';
-      root.style.setProperty('--color-dark', darkColors);
-      root.style.setProperty('--color-light', lightColors);
-    }
-  }
-
+ 
